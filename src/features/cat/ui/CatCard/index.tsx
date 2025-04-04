@@ -1,26 +1,49 @@
+import { useEffect, useState } from 'react'
 import styles from './styles.module.sass'
 import { CatImage } from '@/features/cat/types/types'
+import clsx from 'clsx'
 
 interface ICatCardProps {
   cat?: CatImage
   isLoading: boolean
   isError: boolean
+  isFetching: boolean
 }
 
-export const CatCard = ({ cat, isLoading, isError }: ICatCardProps) => {
-  if (isLoading) return <div className={styles.card}>Loading cat...</div>
-  if (isError) return <div className={styles.card}>Error fetching cat</div>
+export const CatCard = ({ cat, isLoading, isError, isFetching }: ICatCardProps) => {
+  const [displayedCat, setDisplayedCat] = useState<CatImage | undefined>(cat)
+  const [fade, setFade] = useState(false)
+
+  useEffect(() => {
+    if (cat?.url !== displayedCat?.url) {
+      setFade(true)
+
+      const timeout = setTimeout(() => {
+        setDisplayedCat(cat)
+        setFade(false)
+      }, 300)
+
+      return () => clearTimeout(timeout)
+    }
+  }, [cat, displayedCat])
+
+  if (isLoading) return <div className={styles.card}>🐱 Loading cat...</div>
+  if (isError) return <div className={styles.card}>❌ Error fetching cat</div>
 
   return (
-    <div className={styles.card}>
-      {cat && (
+    <div className={clsx(styles.card, isFetching && styles.loading)}>
+      {displayedCat && (
         <img
-          src={cat.url}
+          key={displayedCat.url}
+          src={displayedCat.url}
           alt="Random cat"
-          className={styles.image}
-          width={cat.width}
-          height={cat.height}
+          className={clsx(styles.image, fade && styles.fadeOut)}
         />
+      )}
+      {isFetching && (
+        <div className={styles.overlay}>
+          <div className={styles.spinner}></div>
+        </div>
       )}
     </div>
   )

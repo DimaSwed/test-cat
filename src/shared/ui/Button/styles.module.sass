@@ -1,0 +1,31 @@
+@use '@/app/styles/variables' as *
+
+.button
+  background-color: $color-black
+  border: none
+  color: $color-light-grey
+  width: 100%
+  padding: 8px 16px
+  text-align: center
+  text-decoration: none
+  display: inline-block
+  font-size: 14px
+  margin: 4px 2px
+  cursor: pointer
+  border-radius: 4px
+  transition: all 0.2s
+  border: 1px solid transparent
+
+  &:hover
+    background-color: $color-semi-transparent-white
+    color: $color-black
+    border: 1px solid $color-black
+
+  &:disabled
+    opacity: 0.5
+    cursor: not-allowed
+
+    &:hover
+      background-color: $color-black
+      color: $color-light-grey
+      border: 1px solid transparent
