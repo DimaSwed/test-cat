@@ -3,9 +3,9 @@ import { Button } from '@/shared/ui/Button'
 
 interface IRefreshButtonProps {
   isEnabled: boolean
-  toggleEnabled: () => void
+  toggleEnabled: (event: React.ChangeEvent<HTMLInputElement>) => void
   autoRefresh: boolean
-  toggleAutoRefresh: () => void
+  toggleAutoRefresh: (event: React.ChangeEvent<HTMLInputElement>) => void
   onGetCat: () => void
 }
 

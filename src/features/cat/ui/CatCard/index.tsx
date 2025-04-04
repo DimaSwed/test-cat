@@ -11,15 +11,15 @@ interface ICatCardProps {
 }
 
 export const CatCard = ({ cat, isLoading, isError, isFetching }: ICatCardProps) => {
-  const [displayedCat, setDisplayedCat] = useState<CatImage | undefined>(cat)
-  const [fade, setFade] = useState(false)
+  const [displayedCat, setDisplayedCat] = useState<CatImage | null>(cat || null)
+  const [fade, setFade] = useState<boolean>(false)
 
   useEffect(() => {
     if (cat?.url !== displayedCat?.url) {
       setFade(true)
 
       const timeout = setTimeout(() => {
-        setDisplayedCat(cat)
+        setDisplayedCat(cat || null)
         setFade(false)
       }, 300)
 

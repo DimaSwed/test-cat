@@ -2,7 +2,7 @@ import styles from './styles.module.sass'
 
 interface ButtonProps {
   children: React.ReactNode
-  onClick: () => void
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   isEnabled: boolean
 }
 
