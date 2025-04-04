@@ -7,22 +7,13 @@ interface IAppProvidersProps {
   children: ReactNode
 }
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: 1
-    }
-  }
-})
+const queryClient = new QueryClient()
 
 export const AppProviders: FC<IAppProvidersProps> = ({ children }) => {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-      
-          {children}
-      
+        {children}
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </BrowserRouter>
